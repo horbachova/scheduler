@@ -140,3 +140,12 @@ storiesOf("InterviewerList", module)
       time="12pm"
     />
   ))
+  .add("Header", () => (
+
+    <Header
+
+      time="12pm"
+
+    />
+
+  ))
