@@ -141,11 +141,12 @@ storiesOf("InterviewerList", module)
     />
   ))
   .add("Header", () => (
-
     <Header
-
       time="12pm"
-
     />
-
+  ))
+  .add("Empty", () => (
+    <Empty
+      onAdd={action("onAdd")}
+    />
   ))
