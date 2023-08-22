@@ -1,6 +1,6 @@
 const equalAppointments = (appointments, allId) => {
     const equal = allId.map(id => appointments[id]);
-    return equal;;
+    return equal;
   }
   
 
