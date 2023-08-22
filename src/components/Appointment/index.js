@@ -18,6 +18,7 @@ const CREATING = "CREATING";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRMING = "CONFIRMING";
+const EDIT = "EDIT";
 
 
 
@@ -93,6 +94,15 @@ export default function Appointment(props) {
         <Confirm
           message="Are you sure you would like to delete this?"
           onConfirm={deleteInterview}
+          onCancel={back}
+        />
+      )}
+            {mode === EDIT && (
+        <Form
+          name={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          interviewers={props.interviewers}
+          onSave={save}
           onCancel={back}
         />
       )}
