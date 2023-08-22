@@ -5,20 +5,28 @@ import Show from "./Show"
 import Empty from "./Empty"
 import Form from "./Form"
 import Status from "./Status";
+import Confirm from "./Confirm";
 import useVisualMode from "hooks/useVisualMode";
+
 import "./styles.scss"
+
+
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
-const CREATE = "CREATE";
+const CREATING = "CREATING";
 const SAVING = "SAVING";
+const DELETING = "DELETING";
+const CONFIRMING = "CONFIRMING";
+
 
 
 export default function Appointment(props) {
-
   const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
-  );
+      props.interview ? SHOW : EMPTY
+    );
+
+
 
   function save(name, interviewer) {
     const interview = {
@@ -29,35 +37,66 @@ export default function Appointment(props) {
     transition(SAVING);
 
     props.bookInterview(props.id, interview)
-    .then(() => transition(SHOW));
+      .then(() => transition(SHOW));
   }
+
+
+
+  function deleteInterview() {
+    transition(DELETING);
+
+    props.cancelInterview(props.id)
+      .then(() => transition(EMPTY));
+  } 
+
+
 
   return (
     <article className="appointment">
       <Header time={props.time} />
+
       {mode === EMPTY && (
         <Empty
-          onAdd={() => transition(CREATE)}
+          onAdd={() => transition(CREATING)}
         />
       )}
+
       {mode === SHOW && (
         <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
+        onDelete={() => transition(CONFIRMING)}
         /> 
       )}
-            {mode === CREATE && (
+
+      {mode === CREATING && (
         <Form
-          interviewers={[]}
+          interviewers={props.interviewers}
           onSave={save}
           onCancel={back}
         />
       )}
-            {mode === SAVING && (
+
+      {mode === SAVING && (
         <Status
-          message={"Saving"}
+          message="Saving"
         />
       )}
+
+      {mode === DELETING && (
+        <Status
+          message="Deleting"
+        />
+      )}
+
+      {mode === CONFIRMING && (
+        <Confirm
+          message="Are you sure you would like to delete this?"
+          onConfirm={deleteInterview}
+          onCancel={back}
+        />
+      )}
+
     </article>
   )
 }
