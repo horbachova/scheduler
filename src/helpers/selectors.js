@@ -13,5 +13,17 @@ const equalAppointments = (appointments, allId) => {
     })
     return equalAppointments(state.appointments, appointmentArr);
   }
+
+  function getInterview(state, interview) {
+    if (!interview) {
+      return null;
+    }
   
-  module.exports = { getAppointmentsForDay };
+    const interviewerInfo = state.interviewers[interview.interviewer];
+    return {
+      student: interview.student,
+      interviewer: interviewerInfo
+    }
+};
+
+  module.exports = { getAppointmentsForDay, getInterview};
