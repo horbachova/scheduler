@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 
+
 import DayList from "components/DayList";
 import Appointment from "components/Appointment"
-import axios from 'axios';
+
+import axios from "axios";
 
 import "components/Application.scss";
 
@@ -31,7 +33,7 @@ const appointments = [
     id: 4,
     time: "3pm",
     interview: {
-      student: "Nazar Novilov",
+      student: "Nazar Shnur",
       interviewer: {
         id: 2,
         name: "Jessica Jones",
@@ -72,9 +74,8 @@ export default function Application(props) {
         />
       <hr className="sidebar__separator sidebar--centered" />
       <nav className="sidebar__menu">
-      <nav className="sidebar__menu"></nav>
-      <DayList
-          days={dayData}
+        <DayList
+          days={days}
           day={day}
           setDay={setDay}
         />
