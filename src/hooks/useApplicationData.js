@@ -24,6 +24,11 @@ export default function useApplicationData() {
     })
   }, []);
 
+  useEffect(() => {
+    axios.get("/api/days")
+      .then(days => setState(state => ({ ...state, days: days.data })));
+  }, [state.appointments])
+
   function bookInterview(id, interview) {
 
     const appointment = {
