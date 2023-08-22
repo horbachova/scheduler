@@ -4,7 +4,7 @@ const equalAppointments = (appointments, allId) => {
 }
 
 
-function getAppointmentsForDay(state, day) {
+export const getAppointmentsForDay =(state, day) => {
     let appointmentArr = [];
     state.days.map(dayObject => {
         if (dayObject.name === day) {
@@ -14,7 +14,7 @@ function getAppointmentsForDay(state, day) {
     return equalAppointments(state.appointments, appointmentArr);
 }
 
-function getInterview(state, interview) {
+export const getInterview =(state, interview) => {
     if (!interview) {
         return null;
     }
@@ -26,4 +26,19 @@ function getInterview(state, interview) {
     }
 };
 
-module.exports = { getAppointmentsForDay, getInterview };
+
+export const getInterviewersForDay = (state, day) => {
+    const dayObj = state.days.find(elem => elem.name === day);
+  
+    if (!dayObj) {
+      return [];
+    }
+    const interviewerIds = dayObj.interviewers;
+    const interviewersForDay = [];
+    for (const id in state.interviewers) {
+      if (interviewerIds.includes(Number(id))) {
+        interviewersForDay.push(state.interviewers[id])
+      }
+    }
+    return interviewersForDay;
+  }
