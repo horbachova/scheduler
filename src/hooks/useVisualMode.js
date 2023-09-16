@@ -9,7 +9,7 @@ export default function useVisualMode(initial) {
             setMode((prev) => newMode)
             let replaceArr = [...history];
             replaceArr[replaceArr.length - 1] = mode;
-            setHistory((prev) => replaceHistory);
+            setHistory((prev) => replaceArr);
         } else {
             setMode((prev) => newMode);
             let newArr = [...history];
