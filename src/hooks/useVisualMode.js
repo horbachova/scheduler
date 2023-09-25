@@ -1,25 +1,28 @@
 import { useState}  from "react";
 
 export default function useVisualMode(initial) {
-    const [mode, setMode] = useState(initial);
-    const [history, setHistory] = useState([initial]);
+  const [mode, setMode] = useState(initial);
+  const [history, setHistory] = useState([initial]);
 
     const transition = (newMode, replace = false) => {
-        if (replace) {
-            setMode((prev) => newMode)
-            let replaceArr = [...history];
-            replaceArr[replaceArr.length - 1] = mode;
-            setHistory((prev) => replaceArr);
-        } else {
-            setMode((prev) => newMode);
-            let newArr = [...history];
-            newArr.push(newMode);
-            setHistory((prev) => newArr);
-        }
-    };
+    setMode(newMode);
 
+   // For transtioning into a new visual mode
+    setHistory(history => {
+      if (replace) {
+        const newHistory = [...history];
+        newHistory.splice(-1, 1, newMode);
+        return newHistory;
+      } else {
+        return [...history, newMode];
+      }
+    });
+  };
+
+
+  //For going back to the previous visual mode
     const back = () => {
-        let newArr = [...history];
+    let newArr = [...history];
         newArr.pop(mode);
         setHistory((prev) => newArr);
         if (history.length > 1) {
@@ -27,9 +30,9 @@ export default function useVisualMode(initial) {
         }
     };
 
-    return {
-        mode,
-        transition,
-        back
-    }
+  return {
+    mode,
+    transition,
+    back
+  };
 }
