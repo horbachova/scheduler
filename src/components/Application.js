@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment"
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors"
